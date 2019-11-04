@@ -10,16 +10,23 @@
             <hr class="my-4">
             <b-list-group>
                 <b-list-group-item 
-                v-for="(option,index) in suffleOptions" 
-                :key=index
-                @click="selectedOption(index)"
-                :class="[index===selectedIndex? 'selectedAnswer' : '' ]"
+                  v-for="(option,index) in suffleOptions" 
+                  :key=index
+                  @click="selectedOption(index)"
+                  :class="[
+                  !answered && index===selectedIndex? 'selectedAnswer' : 
+                  answered && index===correctIndex ? 'correctAnswer' :
+                  answered && selectedIndex===index && index!==correctIndex ? 'wrongAnswer' :'' ]"
                 >
                     {{option}}
                 </b-list-group-item>
             </b-list-group>
-
-            <b-button variant="primary" href="#">Submit</b-button>
+            <b-button variant="primary"
+              @click="checkSubmittedAns"
+              :disabled="selectedIndex==null || answered"
+            >
+                Submit
+            </b-button>
             <b-button variant="success" @click="next" href="#">Next</b-button>
         </b-jumbotron>
     </div>
@@ -31,16 +38,14 @@ export default {
         currentQuestion:Object,
         number: Number,
         next:Function,
+        incrementCorrect: Function
     },
     data(){
         return {
             selectedIndex:null,
-            suffleOptions:[]
-        }
-    },
-    computed:{
-        options(){
-            return [...this.currentQuestion.incorrect_answers,this.currentQuestion.correct_answer]
+            suffleOptions:[],
+            answered:false,
+            correctIndex:null
         }
     },
     watch:{
@@ -48,6 +53,7 @@ export default {
             immediate:true,
             handler(){
                 this.selectedIndex=null
+                this.answered=false
                 this.suffleOptionsFunction()
             }
         }
@@ -59,6 +65,13 @@ export default {
         suffleOptionsFunction(){
             let options=[...this.currentQuestion.incorrect_answers,this.currentQuestion.correct_answer]
             this.suffleOptions=_.shuffle(options)
+            this.correctIndex=this.suffleOptions.indexOf(this.currentQuestion.correct_answer)
+        },
+        checkSubmittedAns(){
+            this.answered=true
+            if(this.selectedIndex===this.correctIndex){
+                this.incrementCorrect()
+            }
         }
     }
 }
