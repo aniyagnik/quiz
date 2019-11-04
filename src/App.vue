@@ -70,4 +70,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+.bv-example-row{
+  margin-top:15px;
+}
 </style>
