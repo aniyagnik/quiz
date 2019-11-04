@@ -14,6 +14,7 @@
             :next="next"
             :incrementCorrect="incrementCorrect"
             :correctAns="correctAns"
+            :isCompleted='isCompleted'
           />
         </b-col>
       </b-row>
@@ -34,12 +35,15 @@ export default {
     return {
       questions:[],
       index:0,
-      correctAns:0
+      correctAns:0,
+      isCompleted:false
     }
   },
   methods:{
     next(){
-      this.index++
+      if(this.index!=9)
+        this.index++
+      else this.isCompleted=true  
     },
     incrementCorrect(){
       this.correctAns++;

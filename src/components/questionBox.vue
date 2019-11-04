@@ -1,46 +1,64 @@
 <template>
     <div class='questionBox-container'>
-        <b-jumbotron>
-            <template v-slot:header>question {{number}}</template>
+        <div v-if='!isCompleted'>
+            <b-jumbotron>
+                <template v-slot:header>question {{number}}</template>
+
+                <template v-slot:lead>
+                {{currentQuestion.question}}
+                </template>
+
+                <hr class="my-4">
+                <b-list-group>
+                    <b-list-group-item 
+                    v-for="(option,index) in suffleOptions" 
+                    :key=index
+                    @click="selectedOption(index)"
+                    :class="[
+                    !answered && index===selectedIndex? 'selectedAnswer' : 
+                    answered && index===correctIndex ? 'correctAnswer' :
+                    answered && selectedIndex===index && index!==correctIndex ? 'wrongAnswer' :'' ]"
+                    >
+                        {{option}}
+                    </b-list-group-item>
+                </b-list-group>
+                <b-button variant="primary"
+                @click="checkSubmittedAns"
+                :disabled="selectedIndex==null || answered"
+                >
+                    Submit
+                </b-button>
+                <b-button variant="success" 
+                @click="next" 
+                :disabled="!answered"
+                v-if ="number<10"  
+                >
+                    Next
+                </b-button>
+                <b-button variant="success" 
+                @click="next" 
+                :disabled="!answered"
+                v-if ="number===10"  
+                >
+                    check result
+                </b-button>
+            </b-jumbotron>
+        </div>
+        <div v-if='isCompleted'>
+            <b-jumbotron>
+            <template v-slot:header>RESULT</template>
 
             <template v-slot:lead>
-            {{currentQuestion.question}}
+                you answered {{correctAns}} questions right from 10 geography questions. 
             </template>
-
             <hr class="my-4">
-            <b-list-group>
-                <b-list-group-item 
-                  v-for="(option,index) in suffleOptions" 
-                  :key=index
-                  @click="selectedOption(index)"
-                  :class="[
-                  !answered && index===selectedIndex? 'selectedAnswer' : 
-                  answered && index===correctIndex ? 'correctAnswer' :
-                  answered && selectedIndex===index && index!==correctIndex ? 'wrongAnswer' :'' ]"
-                >
-                    {{option}}
-                </b-list-group-item>
-            </b-list-group>
-            <b-button variant="primary"
-              @click="checkSubmittedAns"
-              :disabled="selectedIndex==null || answered"
-            >
-                Submit
-            </b-button>
-            <b-button variant="success" 
-              @click="next" 
-              :disabled="!answered"
-              v-if ="number<10"  
-            >
-                Next
-            </b-button>
-            <b-button variant="success" 
-              @click="result" 
-              v-if ="number===10"  
-            >
-                check result
-            </b-button>
+            <p v-if="correctAns>=0 && correctAns<4">you performed poorly</p>
+            <p v-if="correctAns>=4 && correctAns<=6">you can do better</p>
+            <p v-if="correctAns>6 && correctAns<8">you have performance was satisfactory</p>
+            <p v-if="correctAns>=8 && correctAns<=9">your performance was good</p>
+            <p v-if="correctAns==10">your performance was excellent</p>
         </b-jumbotron>
+        </div>
     </div>
 </template>
 <script>
@@ -50,7 +68,9 @@ export default {
         currentQuestion:Object,
         number: Number,
         next:Function,
-        incrementCorrect: Function
+        incrementCorrect: Function,
+        correctAns:Number,
+        isCompleted:Boolean
     },
     data(){
         return {
