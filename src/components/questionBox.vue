@@ -10,7 +10,7 @@
             <hr class="my-4">
             <b-list-group>
                 <b-list-group-item 
-                v-for="(option,index) in options" 
+                v-for="(option,index) in suffleOptions" 
                 :key=index
                 @click="selectedOption(index)"
                 :class="[index===selectedIndex? 'selectedAnswer' : '' ]"
