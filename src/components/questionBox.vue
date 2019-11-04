@@ -27,7 +27,19 @@
             >
                 Submit
             </b-button>
-            <b-button variant="success" @click="next" href="#">Next</b-button>
+            <b-button variant="success" 
+              @click="next" 
+              :disabled="!answered"
+              v-if ="number<10"  
+            >
+                Next
+            </b-button>
+            <b-button variant="success" 
+              @click="result" 
+              v-if ="number===10"  
+            >
+                check result
+            </b-button>
         </b-jumbotron>
     </div>
 </template>
@@ -60,7 +72,8 @@ export default {
     },
     methods:{
         selectedOption(index){
-            this.selectedIndex=index
+            if(!this.answered)
+                this.selectedIndex=index
         },
         suffleOptionsFunction(){
             let options=[...this.currentQuestion.incorrect_answers,this.currentQuestion.correct_answer]

@@ -13,6 +13,7 @@
             :number="index+1"
             :next="next"
             :incrementCorrect="incrementCorrect"
+            :correctAns="correctAns"
           />
         </b-col>
       </b-row>
