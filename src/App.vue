@@ -3,7 +3,11 @@
     <Header/>
     <b-container class="bv-example-row">
       <b-row >
-        <b-col sm ="6" offset='3'><QuestionBox/></b-col>
+        <b-col sm ="6" offset='3'>
+          <QuestionBox 
+          :currentQuestion="questions.results[index]"
+          />
+        </b-col>
       </b-row>
     </b-container>
   </div>
@@ -20,7 +24,8 @@ export default {
   },
   data() {
     return {
-      questions:[]
+      questions:[],
+      index:0
     }
   },
   mounted:function(){
