@@ -2,17 +2,16 @@
   <div>
     <div>
       <b-dropdown
-        text="Select Category for the quiz"
+        :text="dropdownOptions[targetIndex].text"
         block
         variant="primary"
         class="m-2"
         menu-class="w-100"
       >
         <b-dropdown-item
-          href="#"
-          v-for="option in dropdownOptions"
+          v-for="(option,index) in dropdownOptions"
           :key="option.code"
-          @click="()=>selectCategory(option.code)"
+          @click="()=>{targetIndex = index;handleCategory(option.code)}"
           >{{ option.text }}</b-dropdown-item
         >
       </b-dropdown>
@@ -25,7 +24,9 @@ export default {
   name:'quizCategory',
   props: {
     dropdownOptions: Array,
-    selectCategory: Function
+    handleCategory: Function
   },
-};
+  data(){return{targetIndex:0}},
+
+}
 </script>

@@ -57,6 +57,11 @@
             <p v-if="correctAns>6 && correctAns<8">you have performance was satisfactory</p>
             <p v-if="correctAns>=8 && correctAns<=9">your performance was good</p>
             <p v-if="correctAns==10">your performance was excellent</p>
+            <b-button variant="warning" 
+                @click="handleRouteChange" 
+                >
+                    select new category
+                </b-button>
         </b-jumbotron>
         </div>
     </div>
@@ -92,6 +97,7 @@ export default {
         }
     },
     methods:{
+        handleRouteChange(){this.$router.push(`/`);},
         selectedOption(index){
             if(!this.answered)
                 this.selectedIndex=index

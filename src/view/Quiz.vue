@@ -29,6 +29,7 @@
 
   export default {
     name: "quiz",
+    props:{keyword:String},
     components: {
       Header,
       QuestionBox,
@@ -41,6 +42,7 @@
         correctAns: 0,
         isCompleted: false,
         isLoading: true,
+        quizCode: this.$route.params.code
       };
     },
     methods: {
@@ -53,7 +55,7 @@
       },
     },
     mounted: function() {
-      fetch("https://opentdb.com/api.php?amount=10&category=22&type=multiple", {
+      fetch(`https://opentdb.com/api.php?amount=10&category=${this.quizCode}&type=multiple`, {
         method: "get",
       })
         .then((response) => response.json())

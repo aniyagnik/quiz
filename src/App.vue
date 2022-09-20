@@ -19,4 +19,11 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+.home{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
 </style>
