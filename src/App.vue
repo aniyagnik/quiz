@@ -19,6 +19,7 @@
         </b-row>
       </b-container>
     </div>
+    <QuizCategory :dropdownOptions="dropdownOptions" :selectCategory="selectCategory"/>
   </div>
 </template>
 
@@ -26,12 +27,14 @@
 import QuestionBox from "./components/questionBox.vue";
 import LoadingBar from "./components/LoadingBar";
 import Header from "./components/header.vue";
+import QuizCategory from "./components/quizCategory.vue";
 export default {
   name: "app",
   components: {
     Header,
     QuestionBox,
     LoadingBar,
+    QuizCategory,
   },
   data() {
     return {
@@ -40,6 +43,16 @@ export default {
       correctAns: 0,
       isCompleted: false,
       isLoading: true,
+      dropdownOptions: [
+        {
+          text: "geography",
+          code: 22,
+        },
+        {
+          text: "history",
+          code: 21,
+        },
+      ],
     };
   },
   methods: {
@@ -50,6 +63,10 @@ export default {
     incrementCorrect() {
       this.correctAns++;
     },
+    selectCategory(code) {
+      this.selectedCategory = code
+      console.log(this.selectedCategory);
+    }
   },
   mounted: function() {
     fetch("https://opentdb.com/api.php?amount=10&category=22&type=multiple", {
