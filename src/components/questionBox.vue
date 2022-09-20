@@ -64,6 +64,7 @@
 <script>
 import _ from "lodash";
 export default {
+    name:'questionBox',
     props:{
         currentQuestion:Object,
         number: Number,

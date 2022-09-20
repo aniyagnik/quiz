@@ -2,7 +2,7 @@
   <div>
     <div>
       <b-dropdown
-        text="Block Level Dropdown Menu"
+        text="Select Category for the quiz"
         block
         variant="primary"
         class="m-2"
@@ -22,6 +22,7 @@
 
 <script>
 export default {
+  name:'quizCategory',
   props: {
     dropdownOptions: Array,
     selectCategory: Function

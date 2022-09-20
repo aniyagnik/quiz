@@ -9,6 +9,7 @@
 
 <script>
 export default {
+    name:'top-header',
     props:{
         correctAns:Number,
         totalQue:Number

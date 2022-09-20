@@ -40,6 +40,7 @@
   }
   
   export default {
+    name:'loadingBar',
     props: {isLoading:Boolean},
     data() {
       return {
