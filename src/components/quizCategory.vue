@@ -5,7 +5,7 @@
         :text="dropdownOptions[targetIndex].text"
         block
         variant="primary"
-        class="m-2"
+        class="m-2 customDropdown"
         menu-class="w-100"
       >
         <b-dropdown-item

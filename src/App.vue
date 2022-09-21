@@ -26,4 +26,7 @@ export default {
   flex-direction: column;
   min-height: 100vh;
 }
+.customDropdown{
+  min-width: 45ch;
+}
 </style>
